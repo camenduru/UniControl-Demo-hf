@@ -77,7 +77,14 @@ def inpainting(img, res, rand_h, rand_h_1, rand_w, rand_w_1):
 
 
 model = create_model('./models/cldm_v15_unicontrol.yaml').cpu()
-model_path = 'https://huggingface.co/Robert001/UniControl-Model/resolve/main/unicontrol_v1.1.ckpt'
+model_url = 'https://huggingface.co/Robert001/UniControl-Model/resolve/main/unicontrol_v1.1.ckpt'
+ckpts_path='./'
+model_path = os.path.join(ckpts_path, "unicontrol_v1.1.ckpt")
+
+if not os.path.exists(model_path):
+    from basicsr.utils.download_util import load_file_from_url
+    load_file_from_url(model_url, model_dir=ckpts_path)
+
 model.load_state_dict(load_state_dict(model_path, location='cuda'), strict=False)
 model = model.cuda()
 ddim_sampler = DDIMSampler(model)
