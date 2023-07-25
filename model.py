@@ -315,7 +315,6 @@ class ControlNet(nn.Module):
             num_heads = ch // num_head_channels
             dim_head = num_head_channels
         if legacy:
-            # num_heads = 1
             dim_head = ch // num_heads if use_spatial_transformer else num_head_channels
         self.middle_block = TimestepEmbedSequential(
             ResBlock(
@@ -360,7 +359,6 @@ class ControlNet(nn.Module):
         hint -> 4, 3, 512, 512
         context - > 4, 77, 768
         '''
-        BS = 1 # x.shape[0], one batch one task
         BS_Real = x.shape[0]
         if kwargs is not None:
             task_name = kwargs['task']['name']
@@ -407,7 +405,6 @@ class ControlLDM(LatentDiffusion):
         super().__init__(*args, **kwargs)
         self.mapping_task = {"control_hed": "hed edge to image", "control_canny": "canny edge to image", "control_seg": "segmentation map to image", "control_depth": "depth map to image", "control_normal": "normal surface map to image", "control_img": "image editing", "control_openpose": "human pose skeleton to image", "control_hedsketch": "sketch to image", "control_bbox": "bounding box to image", "control_outpainting": "image outpainting", "control_grayscale": "gray image to color image", "control_blur": "deblur image to clean image", "control_inpainting": "image inpainting"}
         self.all_tasks_num = len(self.mapping_task)
-#         self.task_weight_all = nn.Parameter(torch.zeros(self.all_tasks_num,), requires_grad=True)
         self.task_loss_ema = torch.zeros(self.all_tasks_num,)
 
         self.control_model = instantiate_from_config(control_stage_config) # -> ControlNet
@@ -552,11 +549,6 @@ class ControlLDM(LatentDiffusion):
         c_cat, c = c["c_concat"][0][:N], c["c_crossattn"][0][:N]
         N = min(z.shape[0], N)
         n_row = min(z.shape[0], n_row)
-#         log["reconstruction"] = self.decode_first_stage(z)
-#         log["control"] = c_cat * 2.0 - 1.0
-#         log["conditioning"] = log_txt_as_img((512, 512), batch[self.cond_stage_key], size=16)
-
-
 
         uc_cross = self.get_unconditional_conditioning(N)
         uc_cat = c_cat  # torch.zeros_like(c_cat)
