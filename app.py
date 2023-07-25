@@ -34,7 +34,6 @@ import cvlib as cv
 
 from utils import create_model, load_state_dict
 from lib.ddim_hacked import DDIMSampler
-import pdb
 
 apply_uniformer = UniformerDetector()
 apply_midas = MidasDetector()
