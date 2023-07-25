@@ -7,7 +7,6 @@
  * Modified from ControlNet repo: https://github.com/lllyasviel/ControlNet
  * Copyright (c) 2023 Lvmin Zhang and Maneesh Agrawala
 '''
-import sys
 
 import config
 
