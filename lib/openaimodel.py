@@ -26,7 +26,7 @@ from lib.util import (
     timestep_embedding,
 )
 from attention import SpatialTransformer
-from utils import exists
+from ..utils import exists
 
 
 # dummy replace

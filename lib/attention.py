@@ -16,7 +16,7 @@ from torch import nn, einsum
 from einops import rearrange, repeat
 from typing import Optional, Any
 
-from utils import checkpoint
+from ..utils import checkpoint
 
 try:
     import xformers
