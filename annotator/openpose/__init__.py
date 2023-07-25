@@ -30,13 +30,13 @@ hand_model_path = "https://huggingface.co/lllyasviel/ControlNet/resolve/main/ann
 
 class OpenposeDetector:
     def __init__(self):
-        # body_modelpath = os.path.join(annotator_ckpts_path, "body_pose_model.pth")
-        # hand_modelpath = os.path.join(annotator_ckpts_path, "hand_pose_model.pth")
+        body_modelpath = os.path.join(annotator_ckpts_path, "body_pose_model.pth")
+        hand_modelpath = os.path.join(annotator_ckpts_path, "hand_pose_model.pth")
 
-        # if not os.path.exists(hand_modelpath):
-        #     from basicsr.utils.download_util import load_file_from_url
-        #     load_file_from_url(body_model_path, model_dir=annotator_ckpts_path)
-        #     load_file_from_url(hand_model_path, model_dir=annotator_ckpts_path)
+        if not os.path.exists(hand_modelpath):
+            from basicsr.utils.download_util import load_file_from_url
+            load_file_from_url(body_model_path, model_dir=annotator_ckpts_path)
+            load_file_from_url(hand_model_path, model_dir=annotator_ckpts_path)
 
         self.body_estimation = Body(body_modelpath)
         self.hand_estimation = Hand(hand_modelpath)
