@@ -930,21 +930,23 @@ with demo:
     gr.HTML(
         """
         <div style="text-align: center; max-width: 1200px; margin: 20px auto;">
-        <h1 style="font-weight: 900; font-size: 3rem; margin: 0rem">
+        <h1 style="font-weight: 900; font-size: 2rem; margin: 0rem">
             UniControl Stable Diffusion Demo
         </h1>
         <p style="font-size: 1rem; margin: 0rem">
            Can Qin <sup>1,2</sup>, Shu Zhang<sup>1</sup>, Ning Yu <sup>1</sup>, Yihao Feng<sup>1</sup>, Xinyi Yang<sup>1</sup>, Yingbo Zhou <sup>1</sup>, Huan Wang <sup>1</sup>, Juan Carlos Niebles<sup>1</sup>, Caiming Xiong <sup>1</sup>, Silvio Savarese <sup>1</sup>, Stefano Ermon <sup>3</sup>, Yun Fu <sup>2</sup>,  Ran Xu <sup>1</sup> 
         </p>
         <p style="font-size: 0.8rem; margin: 0rem; line-height: 1em">
-            <sup>1</sup> Salesforce AI <sup>2</sup> Northeastern University  <sup>3</sup> Stanford University \
-            Work done when Can Qin was an intern at Salesforce AI Research.
+            <sup>1</sup> Salesforce AI <sup>2</sup> Northeastern University  <sup>3</sup> Stanford University
+        </p>
+        <p style="font-size: 0.8rem; margin: 0rem; line-height: 1em">
+        Work done when Can Qin was an intern at Salesforce AI Research.
         </p>
         <p style="font-size: 0.9rem; margin: 0rem; line-height: 1.2em; margin-top:1em">
-            ONE model for AII the condition-to-image generation! \
-            <a href="https://github.com/salesforce/UniControl">[Github]</a>
-            <a href="https://canqin001.github.io/UniControl-Page/">[Website]</a>
-             <a href="https://arxiv.org/abs/2305.11147">[arXiv]</a>
+           <b> ONE model for AII the condition-to-image generation! </b> 
+            <b><a href="https://github.com/salesforce/UniControl">[Github]</a></b> 
+            <b><a href="https://canqin001.github.io/UniControl-Page/">[Website]</a></b> 
+             <b><a href="https://arxiv.org/abs/2305.11147">[arXiv]</a></b> 
         </p>
         </div>
         """)
@@ -1314,6 +1316,10 @@ with demo:
             ips = [input_image, prompt, a_prompt, n_prompt, num_samples, image_resolution, ddim_steps, guess_mode,
                    strength, scale, seed, eta, ksize, condition_mode]
             run_button.click(fn=process_deblur, inputs=ips, outputs=[result_gallery])
+    gr.Markdown('''### Tips
+         -  Please pay attention to <u> Condition Extraction </u> option. 
+         - Positive prompts and negative prompts are very useful sometimes. 
+        ''')
     gr.Markdown('''### Related Spaces
     - https://huggingface.co/spaces/hysts/ControlNet
     - https://huggingface.co/spaces/shi-labs/Prompt-Free-Diffusion
