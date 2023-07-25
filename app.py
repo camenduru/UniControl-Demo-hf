@@ -17,6 +17,7 @@ import gradio as gr
 import numpy as np
 import torch
 import random
+import os
 
 from pytorch_lightning import seed_everything
 from annotator.util import resize_image, HWC3
