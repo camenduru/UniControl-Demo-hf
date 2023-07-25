@@ -8,6 +8,10 @@
  * Copyright (c) 2023 Lvmin Zhang and Maneesh Agrawala
 '''
 
+import sys
+
+sys.path.append('./')
+
 from inspect import isfunction
 import math
 import torch
@@ -16,7 +20,7 @@ from torch import nn, einsum
 from einops import rearrange, repeat
 from typing import Optional, Any
 
-from ..utils import checkpoint
+from utils import checkpoint
 
 try:
     import xformers
