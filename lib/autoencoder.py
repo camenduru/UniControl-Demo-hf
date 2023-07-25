@@ -16,7 +16,7 @@ from contextlib import contextmanager
 from lib.model import Encoder, Decoder
 from lib.distributions import DiagonalGaussianDistribution
 
-from lib.util import instantiate_from_config
+from utils import instantiate_from_config
 
 class AutoencoderKL(pl.LightningModule):
     def __init__(self,

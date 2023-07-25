@@ -15,7 +15,7 @@ from torch.utils.checkpoint import checkpoint
 from transformers import T5Tokenizer, T5EncoderModel, CLIPTokenizer, CLIPTextModel
 
 import open_clip
-from lib.util import default, count_params
+from utils import default, count_params
 
 
 class AbstractEncoder(nn.Module):
