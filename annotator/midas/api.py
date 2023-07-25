@@ -89,10 +89,10 @@ def load_model(model_type):
     # load network
     model_path = ISL_PATHS[model_type]
     if model_type == "dpt_large":  # DPT-Large
-        # if not os.path.exists(model_path):
-        #     from basicsr.utils.download_util import load_file_from_url
-        #     load_file_from_url(remote_model_path, model_dir=annotator_ckpts_path)
-        model_path = remote_model_path
+        if not os.path.exists(model_path):
+            from basicsr.utils.download_util import load_file_from_url
+            load_file_from_url(remote_model_path, model_dir=annotator_ckpts_path)
+        #model_path = remote_model_path
         model = DPTDepthModel(
             path=model_path,
             backbone="vitl16_384",

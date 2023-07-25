@@ -22,3 +22,4 @@ xformers==0.0.16
 yapf==0.32.0
 cvlib==0.2.7
 tensorflow-cpu
+basicsr==1.4.2
