@@ -25,7 +25,7 @@ from torchvision.utils import make_grid
 from lib.attention import SpatialTransformer
 from lib.openaimodel import UNetModel, TimestepEmbedSequential, ResBlock, Downsample, AttentionBlock
 from lib.ddpm_multi import LatentDiffusion
-from lib.util import log_txt_as_img, exists, instantiate_from_config
+from utils import log_txt_as_img, exists, instantiate_from_config
 from lib.ddim_multi import DDIMSampler
 
 
