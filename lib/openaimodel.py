@@ -25,7 +25,7 @@ from lib.util import (
     normalization,
     timestep_embedding,
 )
-from attention import SpatialTransformer
+from lib.attention import SpatialTransformer
 from utils import exists
 
 
