@@ -926,7 +926,29 @@ def process_inpainting(input_image, prompt, a_prompt, n_prompt, num_samples, ima
 
 demo = gr.Blocks()
 with demo:
-    gr.Markdown("UniControl Stable Diffusion Demo")
+    #gr.Markdown("UniControl Stable Diffusion Demo")
+    gr.HTML(
+        """
+        <div style="text-align: center; max-width: 1200px; margin: 20px auto;">
+        <h1 style="font-weight: 900; font-size: 3rem; margin: 0rem">
+            UniControl Stable Diffusion Demo
+        </h1>
+        <p style="font-size: 1rem; margin: 0rem">
+           Can Qin <sup>1,2</sup>, Shu Zhang<sup>1</sup>, Ning Yu <sup>1</sup>, Yihao Feng<sup>1</sup>, Xinyi Yang<sup>1</sup>, Yingbo Zhou <sup>1</sup>, Huan Wang <sup>1</sup>, Juan Carlos Niebles<sup>1</sup>, Caiming Xiong <sup>1</sup>, Silvio Savarese <sup>1</sup>, Stefano Ermon <sup>3</sup>, Yun Fu <sup>2</sup>,  Ran Xu <sup>1</sup> 
+        </p>
+        <p style="font-size: 0.8rem; margin: 0rem; line-height: 1em">
+            <sup>1</sup> Salesforce AI <sup>2</sup> Northeastern University  <sup>3</sup> Stanford University \
+            Work done when Can Qin was an intern at Salesforce AI Research.
+        </p>
+        <p style="font-size: 0.9rem; margin: 0rem; line-height: 1.2em; margin-top:1em">
+            ONE model for AII the condition-to-image generation! \
+            <a href="https://github.com/salesforce/UniControl">[Github]</a>
+            <a href="https://canqin001.github.io/UniControl-Page/">[Website]</a>
+             <a href="https://arxiv.org/abs/2305.11147">[arXiv]</a>
+        </p>
+        </div>
+        """)
+
     with gr.Tabs():
         with gr.TabItem("Canny"):
             with gr.Row():
@@ -946,12 +968,12 @@ with demo:
                         low_threshold = gr.Slider(label="Canny low threshold", minimum=1, maximum=255, value=40, step=1)
                         high_threshold = gr.Slider(label="Canny high threshold", minimum=1, maximum=255, value=200,
                                                    step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, bright')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -976,12 +998,12 @@ with demo:
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="HED Resolution", minimum=128, maximum=1024, value=512,
                                                       step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, bright')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -1002,16 +1024,16 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="HED Resolution", minimum=128, maximum=1024, value=512,
                                                       step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -1036,12 +1058,12 @@ with demo:
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="Depth Resolution", minimum=128, maximum=1024, value=384,
                                                       step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, bright')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -1066,12 +1088,12 @@ with demo:
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="Depth Resolution", minimum=128, maximum=1024, value=384,
                                                       step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, bright')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -1096,12 +1118,12 @@ with demo:
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="OpenPose Resolution", minimum=128, maximum=1024, value=512,
                                                       step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, bright')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -1126,12 +1148,12 @@ with demo:
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="Segmentation Resolution", minimum=128, maximum=1024,
                                                       value=512, step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, bright')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -1157,12 +1179,12 @@ with demo:
                         confidence = gr.Slider(label="Confidence of Detection", minimum=0.1, maximum=1.0, value=0.4,
                                                step=0.1)
                         nms_thresh = gr.Slider(label="Nms Threshold", minimum=0.1, maximum=1.0, value=0.5, step=0.1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
                         a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, bright')
-                        n_prompt = gr.Textbox(label="Negative Prompt", value='')
+                        n_prompt = gr.Textbox(label="Negative Prompt", value='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
@@ -1183,11 +1205,11 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         h_ratio = gr.Slider(label="Height Masking Ratio", minimum=20, maximum=80, value=50, step=1)
                         w_ratio = gr.Slider(label="Width Masking Ratio", minimum=20, maximum=80, value=50, step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
@@ -1213,7 +1235,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         h_ratio_t = gr.Slider(label="Height Masking Ratio (Top)", minimum=20, maximum=80, value=50,
                                               step=1)
@@ -1223,7 +1245,7 @@ with demo:
                                               step=1)
                         w_ratio_r = gr.Slider(label="Width Masking Ratio (Right)", minimum=20, maximum=80, value=50,
                                               step=1)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
@@ -1249,9 +1271,9 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
@@ -1277,10 +1299,10 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         ksize = gr.Slider(label="Kernel Size", minimum=11, maximum=101, value=51, step=2)
-                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=30, step=1)
+                        ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
@@ -1292,5 +1314,8 @@ with demo:
             ips = [input_image, prompt, a_prompt, n_prompt, num_samples, image_resolution, ddim_steps, guess_mode,
                    strength, scale, seed, eta, ksize, condition_mode]
             run_button.click(fn=process_deblur, inputs=ips, outputs=[result_gallery])
-
+    gr.Markdown('''### Related Spaces
+    - https://huggingface.co/spaces/hysts/ControlNet
+    - https://huggingface.co/spaces/shi-labs/Prompt-Free-Diffusion
+    ''')
 demo.launch()
