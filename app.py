@@ -147,6 +147,7 @@ def process_canny(input_image, prompt, a_prompt, n_prompt, num_samples, image_re
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else ([strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -205,7 +206,7 @@ def process_hed(input_image, prompt, a_prompt, n_prompt, num_samples, image_reso
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
-
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else ([strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -262,7 +263,8 @@ def process_depth(input_image, prompt, a_prompt, n_prompt, num_samples, image_re
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
-
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -320,7 +322,8 @@ def process_normal(input_image, prompt, a_prompt, n_prompt, num_samples, image_r
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
-
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -377,6 +380,8 @@ def process_pose(input_image, prompt, a_prompt, n_prompt, num_samples, image_res
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -433,6 +438,8 @@ def process_seg(input_image, prompt, a_prompt, n_prompt, num_samples, image_reso
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -604,7 +611,8 @@ def process_bbox(input_image, prompt, a_prompt, n_prompt, num_samples, image_res
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
-
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -662,6 +670,8 @@ def process_outpainting(input_image, prompt, a_prompt, n_prompt, num_samples, im
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -739,6 +749,8 @@ def process_sketch(input_image, prompt, a_prompt, n_prompt, num_samples, image_r
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -797,7 +809,8 @@ def process_colorization(input_image, prompt, a_prompt, n_prompt, num_samples, i
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
-
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -854,7 +867,8 @@ def process_deblur(input_image, prompt, a_prompt, n_prompt, num_samples, image_r
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
-
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
@@ -910,7 +924,8 @@ def process_inpainting(input_image, prompt, a_prompt, n_prompt, num_samples, ima
 
         if config.save_memory:
             model.low_vram_shift(is_diffusing=True)
-
+        model.control_scales = [strength * (0.825 ** float(12 - i)) for i in range(13)] if guess_mode else (
+                    [strength] * 13)
         samples, intermediates = ddim_sampler.sample(ddim_steps, num_samples,
                                                      shape, cond, verbose=False, eta=eta,
                                                      unconditional_guidance_scale=scale,
