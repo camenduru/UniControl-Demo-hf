@@ -141,7 +141,7 @@ def process_canny(input_image, prompt, a_prompt, n_prompt, num_samples, image_re
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -200,7 +200,7 @@ def process_hed(input_image, prompt, a_prompt, n_prompt, num_samples, image_reso
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -257,7 +257,7 @@ def process_depth(input_image, prompt, a_prompt, n_prompt, num_samples, image_re
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -316,7 +316,7 @@ def process_normal(input_image, prompt, a_prompt, n_prompt, num_samples, image_r
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -374,7 +374,7 @@ def process_pose(input_image, prompt, a_prompt, n_prompt, num_samples, image_res
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -432,7 +432,7 @@ def process_seg(input_image, prompt, a_prompt, n_prompt, num_samples, image_reso
         cond = {"c_concat": [control],
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -605,7 +605,7 @@ def process_bbox(input_image, prompt, a_prompt, n_prompt, num_samples, image_res
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -664,7 +664,7 @@ def process_outpainting(input_image, prompt, a_prompt, n_prompt, num_samples, im
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -743,7 +743,7 @@ def process_sketch(input_image, prompt, a_prompt, n_prompt, num_samples, image_r
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -803,7 +803,7 @@ def process_colorization(input_image, prompt, a_prompt, n_prompt, num_samples, i
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
 
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -861,7 +861,7 @@ def process_deblur(input_image, prompt, a_prompt, n_prompt, num_samples, image_r
         cond = {"c_concat": [control],
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -918,7 +918,7 @@ def process_inpainting(input_image, prompt, a_prompt, n_prompt, num_samples, ima
         cond = {"c_concat": [control],
                 "c_crossattn": [model.get_learned_conditioning([prompt + ', ' + a_prompt] * num_samples)],
                 "task": task_dic}
-        un_cond = {"c_concat": None if guess_mode else [control],
+        un_cond = {"c_concat": [control * 0] if guess_mode else [control],
                    "c_crossattn": [model.get_learned_conditioning([n_prompt] * num_samples)]}
         shape = (4, H // 8, W // 8)
 
@@ -1310,7 +1310,7 @@ with demo:
                    strength, scale, seed, eta, condition_mode]
             run_button.click(fn=process_colorization, inputs=ips, outputs=[result_gallery])
 
-        with gr.TabItem("Deblur"):
+        with gr.TabItem("Deblurring"):
             with gr.Row():
                 gr.Markdown("## UniControl Stable Diffusion with Image Deblurring")
             with gr.Row():
