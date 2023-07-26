@@ -965,7 +965,7 @@ with demo:
         Work done when Can Qin was an intern at Salesforce AI Research.
         </p>
         <p style="font-size: 0.9rem; margin: 0rem; line-height: 1.2em; margin-top:1em">
-           <b> ONE model for ALL the condition-to-image generation! </b> 
+           <b> ONE compact model for ALL the visual-condition-to-image generation! </b> 
             <b><a href="https://github.com/salesforce/UniControl">[Github]</a></b> 
             <b><a href="https://canqin001.github.io/UniControl-Page/">[Website]</a></b> 
              <b><a href="https://arxiv.org/abs/2305.11147">[arXiv]</a></b> 
@@ -1301,7 +1301,7 @@ with demo:
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
                         eta = gr.Number(label="eta (DDIM)", value=0.0)
-                        a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed')
+                        a_prompt = gr.Textbox(label="Added Prompt", value='best quality, extremely detailed, colorful')
                         n_prompt = gr.Textbox(label="Negative Prompt", value='')
                 with gr.Column():
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
