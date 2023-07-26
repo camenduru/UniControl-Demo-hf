@@ -34,6 +34,9 @@ import cvlib as cv
 from utils import create_model, load_state_dict
 from lib.ddim_hacked import DDIMSampler
 
+from safetensors.torch import load_file as stload
+from collections import OrderedDict
+
 apply_uniformer = UniformerDetector()
 apply_midas = MidasDetector()
 apply_canny = CannyDetector()
@@ -74,17 +77,21 @@ def inpainting(img, res, rand_h, rand_h_1, rand_w, rand_w_1):
     result = model_inpainting(img, rand_h, rand_h_1, rand_w, rand_w_1)
     return result
 
-
 model = create_model('./models/cldm_v15_unicontrol.yaml').cpu()
-model_url = 'https://huggingface.co/Robert001/UniControl-Model/resolve/main/unicontrol_v1.1.ckpt'
+# model_url = 'https://huggingface.co/Robert001/UniControl-Model/resolve/main/unicontrol_v1.1.ckpt'
+model_url = 'https://huggingface.co/Robert001/UniControl-Model/resolve/main/unicontrol_v1.1.st'
+
 ckpts_path='./'
-model_path = os.path.join(ckpts_path, "unicontrol_v1.1.ckpt")
+# model_path = os.path.join(ckpts_path, "unicontrol_v1.1.ckpt")
+model_path = os.path.join(ckpts_path, "unicontrol_v1.1.st")
 
 if not os.path.exists(model_path):
     from basicsr.utils.download_util import load_file_from_url
     load_file_from_url(model_url, model_dir=ckpts_path)
 
-model.load_state_dict(load_state_dict(model_path, location='cuda'), strict=False)
+model_dict = OrderedDict(stload(model_path, device='cpu'))
+model.load_state_dict(model_dict, strict=False)
+# model.load_state_dict(load_state_dict(model_path, location='cuda'), strict=False)
 model = model.cuda()
 ddim_sampler = DDIMSampler(model)
 
@@ -943,7 +950,7 @@ with demo:
         Work done when Can Qin was an intern at Salesforce AI Research.
         </p>
         <p style="font-size: 0.9rem; margin: 0rem; line-height: 1.2em; margin-top:1em">
-           <b> ONE model for AII the condition-to-image generation! </b> 
+           <b> ONE model for ALL the condition-to-image generation! </b> 
             <b><a href="https://github.com/salesforce/UniControl">[Github]</a></b> 
             <b><a href="https://canqin001.github.io/UniControl-Page/">[Website]</a></b> 
              <b><a href="https://arxiv.org/abs/2305.11147">[arXiv]</a></b> 
@@ -1316,6 +1323,8 @@ with demo:
             ips = [input_image, prompt, a_prompt, n_prompt, num_samples, image_resolution, ddim_steps, guess_mode,
                    strength, scale, seed, eta, ksize, condition_mode]
             run_button.click(fn=process_deblur, inputs=ips, outputs=[result_gallery])
+
+
     gr.Markdown('''### Tips
          -  Please pay attention to <u> Condition Extraction </u> option. 
          - Positive prompts and negative prompts are very useful sometimes. 
