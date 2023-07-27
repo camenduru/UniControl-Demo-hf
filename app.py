@@ -54,9 +54,9 @@ def midas(img, res):
     return results
 
 
-def outpainting(img, res, rand_h, rand_w):
+def outpainting(img, res, height_top_extended, height_down_extended, width_left_extended, width_right_extended):
     img = resize_image(HWC3(img), res)
-    result = model_outpainting(img, rand_h, rand_w)
+    result = model_outpainting(img, height_top_extended, height_down_extended, width_left_extended, width_right_extended)
     return result
 
 
@@ -72,9 +72,9 @@ def blur(img, res, ksize):
     return result
 
 
-def inpainting(img, res, rand_h, rand_h_1, rand_w, rand_w_1):
+def inpainting(img, res, height_top_mask, height_down_mask, width_left_mask, width_right_mask):
     img = resize_image(HWC3(img), res)
-    result = model_inpainting(img, rand_h, rand_h_1, rand_w, rand_w_1)
+    result = model_inpainting(img, height_top_mask, height_down_mask, width_left_mask, width_right_mask)
     return result
 
 model = create_model('./models/cldm_v15_unicontrol.yaml').cpu()
@@ -631,13 +631,13 @@ def process_bbox(input_image, prompt, a_prompt, n_prompt, num_samples, image_res
 
 
 def process_outpainting(input_image, prompt, a_prompt, n_prompt, num_samples, image_resolution, ddim_steps, guess_mode,
-                        strength, scale, seed, eta, h_ratio, w_ratio, condition_mode):
+                        strength, scale, seed, eta, height_top_extended, height_down_extended, width_left_extended, width_right_extended, condition_mode):
     with torch.no_grad():
         input_image = HWC3(input_image)
         img = resize_image(input_image, image_resolution)
         H, W, C = img.shape
         if condition_mode == True:
-            detected_map = outpainting(input_image, image_resolution, h_ratio, w_ratio)
+            detected_map = outpainting(input_image, image_resolution, height_top_extended, height_down_extended, width_left_extended, width_right_extended)
         else:
             detected_map = img
 
@@ -987,7 +987,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Canny', value=True)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         low_threshold = gr.Slider(label="Canny low threshold", minimum=1, maximum=255, value=40, step=1)
                         high_threshold = gr.Slider(label="Canny high threshold", minimum=1, maximum=255, value=200,
@@ -1018,7 +1018,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> HED', value=True)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="HED Resolution", minimum=128, maximum=1024, value=512,
                                                       step=1)
@@ -1048,7 +1048,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Sketch', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="HED Resolution", minimum=128, maximum=1024, value=512,
                                                       step=1)
@@ -1078,7 +1078,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Depth', value=True)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="Depth Resolution", minimum=128, maximum=1024, value=384,
                                                       step=1)
@@ -1108,7 +1108,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Normal', value=True)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="Depth Resolution", minimum=128, maximum=1024, value=384,
                                                       step=1)
@@ -1138,7 +1138,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Skeleton', value=True)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="OpenPose Resolution", minimum=128, maximum=1024, value=512,
                                                       step=1)
@@ -1168,7 +1168,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Seg', value=True)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         detect_resolution = gr.Slider(label="Segmentation Resolution", minimum=128, maximum=1024,
                                                       value=512, step=1)
@@ -1198,7 +1198,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=True)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Bbox', value=True)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         confidence = gr.Slider(label="Confidence of Detection", minimum=0.1, maximum=1.0, value=0.4,
                                                step=0.1)
@@ -1229,10 +1229,19 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: Extending', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
-                        h_ratio = gr.Slider(label="Height Masking Ratio", minimum=20, maximum=80, value=50, step=1)
-                        w_ratio = gr.Slider(label="Width Masking Ratio", minimum=20, maximum=80, value=50, step=1)
+
+                        height_top_extended = gr.Slider(label="Top Extended Ratio (%)", minimum=1, maximum=200,
+                                                        value=50, step=1)
+                        height_down_extended = gr.Slider(label="Down Extended Ratio (%)", minimum=1, maximum=200,
+                                                         value=50, step=1)
+
+                        width_left_extended = gr.Slider(label="Left Extended Ratio (%)", minimum=1, maximum=200,
+                                                        value=50, step=1)
+                        width_right_extended = gr.Slider(label="Right Extended Ratio (%)", minimum=1, maximum=200,
+                                                         value=50, step=1)
+
                         ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
                         seed = gr.Slider(label="Seed", minimum=-1, maximum=2147483647, step=1, randomize=True)
@@ -1243,7 +1252,7 @@ with demo:
                     result_gallery = gr.Gallery(label='Output', show_label=False, elem_id="gallery").style(grid=2,
                                                                                                            height='auto')
             ips = [input_image, prompt, a_prompt, n_prompt, num_samples, image_resolution, ddim_steps, guess_mode,
-                   strength, scale, seed, eta, h_ratio, w_ratio, condition_mode]
+                   strength, scale, seed, eta, height_top_extended, height_down_extended, width_left_extended, width_right_extended, condition_mode]
             run_button.click(fn=process_outpainting, inputs=ips, outputs=[result_gallery])
 
         with gr.TabItem("Inpainting"):
@@ -1259,15 +1268,15 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: Cropped Masking', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
-                        h_ratio_t = gr.Slider(label="Height Masking Ratio (Top)", minimum=20, maximum=80, value=50,
+                        h_ratio_t = gr.Slider(label="Top Masking Ratio (%)", minimum=0, maximum=100, value=30,
                                               step=1)
-                        h_ratio_d = gr.Slider(label="Height Masking Ratio (Down)", minimum=20, maximum=80, value=50,
+                        h_ratio_d = gr.Slider(label="Down Masking Ratio (%)", minimum=0, maximum=100, value=60,
                                               step=1)
-                        w_ratio_l = gr.Slider(label="Width Masking Ratio (Left)", minimum=20, maximum=80, value=50,
+                        w_ratio_l = gr.Slider(label="Left Masking Ratio (%)", minimum=0, maximum=100, value=30,
                                               step=1)
-                        w_ratio_r = gr.Slider(label="Width Masking Ratio (Right)", minimum=20, maximum=80, value=50,
+                        w_ratio_r = gr.Slider(label="Right Masking Ratio (%)", minimum=0, maximum=100, value=60,
                                               step=1)
                         ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
@@ -1295,7 +1304,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Gray', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
                         scale = gr.Slider(label="Guidance Scale", minimum=0.1, maximum=30.0, value=9.0, step=0.1)
@@ -1323,7 +1332,7 @@ with demo:
                         image_resolution = gr.Slider(label="Image Resolution", minimum=256, maximum=768, value=512,
                                                      step=64)
                         strength = gr.Slider(label="Control Strength", minimum=0.0, maximum=2.0, value=1.0, step=0.01)
-                        condition_mode = gr.Checkbox(label='Condition Extraction', value=False)
+                        condition_mode = gr.Checkbox(label='Condition Extraction: RGB -> Blur', value=False)
                         guess_mode = gr.Checkbox(label='Guess Mode', value=False)
                         ksize = gr.Slider(label="Kernel Size", minimum=11, maximum=101, value=51, step=2)
                         ddim_steps = gr.Slider(label="Steps", minimum=1, maximum=100, value=20, step=1)
