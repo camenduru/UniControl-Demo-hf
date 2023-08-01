@@ -1357,4 +1357,4 @@ with demo:
     - https://huggingface.co/spaces/hysts/ControlNet
     - https://huggingface.co/spaces/shi-labs/Prompt-Free-Diffusion
     ''')
-demo.launch()
+demo.launch(share=True)
